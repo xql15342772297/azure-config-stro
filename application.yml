@@ -7,4 +7,5 @@ spring:
       uri: https://lin-server.svc.azuremicroservices.io/config
 eureka:
   client:
-    service-url: https://lin-server.svc.azuremicroservices.io/eureka/eureka
+    service-url:
+        defaultZone: https://lin-server.svc.azuremicroservices.io/eureka/eureka
