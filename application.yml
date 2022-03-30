@@ -1,11 +1,11 @@
-spring:
-  application:
-    name: democloud
-  cloud:
-    config:
-      uri: https://lin-server.svc.azuremicroservices.io/config
+# spring:
+#   application:
+#     name: democloud
+#   cloud:
+#     config:
+#       uri: https://lin-server.svc.azuremicroservices.io/config
 
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: https://lin-server.svc.azuremicroservices.io/eureka/eureka
+# eureka:
+#   client:
+#     serviceUrl:
+#       defaultZone: https://lin-server.svc.azuremicroservices.io/eureka/eureka
