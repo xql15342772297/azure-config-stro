@@ -2,9 +2,12 @@ server:
   port: 8080
   
 spring:
+  application:
+    name: democloud
   cloud:
     config:
       uri: https://lin-server.svc.azuremicroservices.io/config
+
 eureka:
   client:
     service-url:
