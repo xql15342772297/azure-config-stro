@@ -1,6 +1,6 @@
 #web容器环境
 server:
-  port: 8089
+  #port: 8089
   servlet:
     # 应用的访问路径
     context-path: /
@@ -106,10 +106,10 @@ mybatis-plus:
   global-config:
     banner: false
 
-eureka:
-  instance:
-    lease-renewal-interval-in-seconds: 10
-    lease-expiration-duration-in-seconds: 30
+#eureka:
+#  instance:
+#    lease-renewal-interval-in-seconds: 10
+#    lease-expiration-duration-in-seconds: 30
 
 #token认证
 security:

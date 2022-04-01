@@ -6,19 +6,19 @@ spring:
   #active: lmp-sy-dev
   # config server
   cloud:
-    config:
-      fail-fast: false
-      profile: ${spring.profiles.active}
-      label: master
-      discovery:
-        enabled: false
-        service-id: lmp-config-server
-      headers:
-        SERVICE-AUTHENTICATION: ${lmp.service.token}
-eureka:
-  instance:
-    instance-id: ${spring.application.name}:${random.int}
-    prefer-ip-address: true
+#    config:
+#      fail-fast: false
+#      profile: ${spring.profiles.active}
+#      label: master
+#      discovery:
+#        enabled: false
+#        service-id: lmp-config-server
+#      headers:
+#        SERVICE-AUTHENTICATION: ${lmp.service.token}
+#eureka:
+#  instance:
+#    instance-id: ${spring.application.name}:${random.int}
+#    prefer-ip-address: true
 
 ---
 #本地环境lmp配置
@@ -28,10 +28,10 @@ lmp:
   service:
     key: ${LMP_SERVICE_KEY:08a23cc95cb94ec29728e1b1fae5f1ab}
     token: ${LMP_SERVICE_TOKEN:eyJhbGciOiJIUzI1NiJ9.eyJzZXJ2aWNlTmFtZSI6IjExMTIiLCJzZXJ2aWNlS2V5IjoiMDhhMjNjYzk1Y2I5NGVjMjk3MjhlMWIxZmFlNWYxYWIiLCJzZXJ2aWNlVHlwZSI6IjEiLCJzZXJ2aWNlQXBwIjoiNTA0Iiwic2VydmljZUNsdXN0ZXIiOiIyIiwianRpIjoiNDI3MzEzMmEwNmJkNGRiNmFlYjc1Y2Y2ODYzODU2OTQiLCJpYXQiOjE1NzE2NjUxOTJ9._HNpPenCTwMhe0CgxkXrcaTt_u1BiuHRFnfkJIQuCrU}
-eureka:
-  client:
-    service-url:
-      defaultZone: http://${lmp.service.key}:${lmp.service.token}@${EUREKA_URL:eureka-dev.lmp-sy.xpaas.lenovo.com}/eureka
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://${lmp.service.key}:${lmp.service.token}@${EUREKA_URL:eureka-dev.lmp-sy.xpaas.lenovo.com}/eureka
 
 ---
 #开发环境lmp配置
@@ -41,10 +41,10 @@ lmp:
   service:
     key: ${LMP_SERVICE_KEY:08a23cc95cb94ec29728e1b1fae5f1ab}
     token: ${LMP_SERVICE_TOKEN:eyJhbGciOiJIUzI1NiJ9.eyJzZXJ2aWNlTmFtZSI6IjExMTIiLCJzZXJ2aWNlS2V5IjoiMDhhMjNjYzk1Y2I5NGVjMjk3MjhlMWIxZmFlNWYxYWIiLCJzZXJ2aWNlVHlwZSI6IjEiLCJzZXJ2aWNlQXBwIjoiNTA0Iiwic2VydmljZUNsdXN0ZXIiOiIyIiwianRpIjoiNDI3MzEzMmEwNmJkNGRiNmFlYjc1Y2Y2ODYzODU2OTQiLCJpYXQiOjE1NzE2NjUxOTJ9._HNpPenCTwMhe0CgxkXrcaTt_u1BiuHRFnfkJIQuCrU}
-eureka:
-  client:
-    service-url:
-      defaultZone: http://${lmp.service.key}:${lmp.service.token}@${EUREKA_URL:eureka-dev.lmp-sy.xpaas.lenovo.com}/eureka
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://${lmp.service.key}:${lmp.service.token}@${EUREKA_URL:eureka-dev.lmp-sy.xpaas.lenovo.com}/eureka
 
 ---
 #测试环境lmp配置
@@ -54,10 +54,10 @@ lmp:
   service:
     key: ${LMP_SERVICE_KEY:08a23cc95cb94ec29728e1b1fae5f1ab}
     token: ${LMP_SERVICE_TOKEN:eyJhbGciOiJIUzI1NiJ9.eyJzZXJ2aWNlTmFtZSI6IjExMTIiLCJzZXJ2aWNlS2V5IjoiMDhhMjNjYzk1Y2I5NGVjMjk3MjhlMWIxZmFlNWYxYWIiLCJzZXJ2aWNlVHlwZSI6IjEiLCJzZXJ2aWNlQXBwIjoiNTA0Iiwic2VydmljZUNsdXN0ZXIiOiIyIiwianRpIjoiNDI3MzEzMmEwNmJkNGRiNmFlYjc1Y2Y2ODYzODU2OTQiLCJpYXQiOjE1NzE2NjUxOTJ9._HNpPenCTwMhe0CgxkXrcaTt_u1BiuHRFnfkJIQuCrU}
-eureka:
-  client:
-    service-url:
-      defaultZone: http://${lmp.service.key}:${lmp.service.token}@${EUREKA_URL:eureka-dev.lmp-sy.xpaas.lenovo.com}/eureka
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://${lmp.service.key}:${lmp.service.token}@${EUREKA_URL:eureka-dev.lmp-sy.xpaas.lenovo.com}/eureka
 
 ---
 #生产环境lmp配置
@@ -67,7 +67,7 @@ lmp:
   service:
     key: ${LMP_SERVICE_KEY:07e4c3183063411d8a97efebe29b2bf4}
     token: ${LMP_SERVICE_TOKEN:eyJhbGciOiJIUzI1NiJ9.eyJzZXJ2aWNlTmFtZSI6IjExMTIiLCJzZXJ2aWNlS2V5IjoiMDdlNGMzMTgzMDYzNDExZDhhOTdlZmViZTI5YjJiZjQiLCJzZXJ2aWNlVHlwZSI6IjEiLCJzZXJ2aWNlQXBwIjoiNTA0Iiwic2VydmljZUNsdXN0ZXIiOiIxMCIsImp0aSI6IjBkNjA0MWVjOGU5OTRhZTNhYzI0NDgwMzgwN2FiZGJiIiwiaWF0IjoxNTg5NDM5NTMyfQ.EoIJD_e2pzMi2-XYCk7170xq4O-LiADi_ZaHCiZmNPo}
-eureka:
-  client:
-    service-url:
-      defaultZone: http://${lmp.service.key}:${lmp.service.token}@${EUREKA_URL:eureka.lmp-by.xpaas.lenovo.com}/eureka
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://${lmp.service.key}:${lmp.service.token}@${EUREKA_URL:eureka.lmp-by.xpaas.lenovo.com}/eureka
