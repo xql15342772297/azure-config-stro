@@ -1,11 +1,43 @@
-# spring:
-#   application:
-#     name: democloud
-#   cloud:
-#     config:
-#       uri: https://lin-server.svc.azuremicroservices.io/config
+feign:
+  hystrix:
+    enabled: true #开启Hystrix
+  #对请求与响应进行GZIP压缩
+  compression:
+    request:
+      enabled: true
+      mime-types: text/xml,application/xml,application/json
+      min-request-size: 2048
+    response:
+      enabled: true
+###################################################
+hystrix:
+  threadpool:
+    default:
+      coreSize: 1000 #缺省为10
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 80000
+          strategy: SEMAPHORE
 
-# eureka:
-#   client:
-#     serviceUrl:
-#       defaultZone: https://lin-server.svc.azuremicroservices.io/eureka/eureka
+ribbon:
+  ReadTimeout: 30000
+  ConnectTimeout: 30000
+  MaxAutoRetries: 1
+  MaxAutoRetriesNextServer: 2
+  eager-load:
+    enabled: true
+########################################################
+spring:
+  cloud:
+    refresh:
+      refreshable: none
+  messages:
+    basename: messages
+  main:
+    allow-bean-definition-overriding: true
+lmp:
+  service:
+    enabled: false
