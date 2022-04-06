@@ -119,11 +119,11 @@ security:
       user-info-uri: http://10.122.64.21:8006/security/user
 
 # 日志配置
-logging:
-  level:
-    com.lenovo.bigdata.delivery.dlms: debug
-    org.springframework: warn
-  config: classpath:logConfig/logback-test.xml
+#logging:
+#  level:
+#    com.lenovo.bigdata.delivery.dlms: debug
+#    org.springframework: warn
+#  config: classpath:logConfig/logback-test.xml
 
 #系统基础配置
 config:
