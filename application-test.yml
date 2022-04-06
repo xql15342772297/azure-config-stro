@@ -1,0 +1,164 @@
+#web容器环境
+server:
+#  port: 8089
+  servlet:
+    # 应用的访问路径
+    context-path: /
+  tomcat:
+    # tomcat的URI编码
+    uri-encoding: UTF-8
+    # tomcat最大线程数，默认为200
+    max-threads: 800
+    # Tomcat启动初始化的线程数，默认值25
+    min-spare-threads: 30
+
+spring:
+  application:
+#    name: ${APPLICATION_NAME:DLMS}--${SERVICE_NAME:dlms-attendance}
+  # 数据源配置
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: org.postgresql.Driver
+    druid:
+      # 主库数据源
+      master:
+        url: jdbc:postgresql://dlms-postgre.postgres.database.azure.com:5432/dlms_attendance
+        username: dlmsadmin@dlms-postgre
+        password: Dlms!1*8$4
+      # 从库数据源
+      slave:
+        # 从数据源开关/默认关闭
+        enabled: false
+        url:
+        username:
+        password:
+      # 初始连接数
+      initialSize: 5
+      # 最小连接池数量
+      minIdle: 10
+      # 最大连接池数量
+      maxActive: 100
+      # 配置获取连接等待超时的时间
+      maxWait: 60000
+      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      timeBetweenEvictionRunsMillis: 60000
+      # 配置一个连接在池中最小生存的时间，单位是毫秒
+      minEvictableIdleTimeMillis: 300000
+      # 配置一个连接在池中最大生存的时间，单位是毫秒
+      maxEvictableIdleTimeMillis: 900000
+      # 配置检测连接是否有效
+      validationQuery: SELECT 1
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      webStatFilter:
+        enabled: true
+      statViewServlet:
+        enabled: true
+        # 设置白名单，不填则允许所有访问
+        allow:
+        url-pattern: /monitor/druid/*
+      filter:
+        stat:
+          enabled: true
+          # 慢SQL记录
+          log-slow-sql: true
+          slow-sql-millis: 1000
+          merge-sql: true
+        wall:
+          config:
+            multi-statement-allow: true
+
+  cloud:
+    bus:
+      destination: lmpConfigServerDev
+
+  aop:
+    proxy-target-class: true
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+  redis:
+    database: 10
+    host: 10.122.64.21
+    port: 6379
+    password: 12345
+    lettuce:
+      pool:
+        min-idle: 8
+        max-idle: 500
+        max-active: 2000
+        max-wait: 10000
+    timeout: 5000
+  # 文件上传大小限制
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+#mybatis配置
+mybatis-plus:
+  type-aliases-package: com.lenovo.bigdata.delivery.dlms.common.CalendarShift.system
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    jdbc-type-for-null: null
+  global-config:
+    banner: false
+
+#eureka:
+#  instance:
+#    lease-renewal-interval-in-seconds: 10
+#    lease-expiration-duration-in-seconds: 30
+
+#token认证
+security:
+  oauth2:
+    resource:
+      id: ${spring.application.name}
+      user-info-uri: http://10.122.64.21:8006/security/user
+
+# 日志配置
+logging:
+  level:
+    com.lenovo.bigdata.delivery.dlms: debug
+    org.springframework: warn
+  config: classpath:logConfig/logback-test.xml
+
+#系统基础配置
+config:
+  #配置免认证url,逗号分隔
+  anonUrl: /actuator/**,/swagger-ui.html,/webjars/**,/swagger-resources/**,/v2/api-docs/**,/csrf,/workflow/**,/attachment/**,/cochat/**
+
+#swagger相关配置
+swagger:
+  #开启、关闭(true开启、false关闭),线上关闭
+  enable: true
+  #controller扫描根路径
+  basePackage: com.lenovo.bigdata.delivery.dlms.attendance.server.controller
+  title: DLMS业务接口详情
+  description: Swagger2构建RESTful APIs
+  contact:
+    name: 联想DLMS项目组
+    url: http://www.lenovo.com
+    email: xxxx@lenovo.com
+  version: 1.0
+
+#feign 服务名定义
+service:
+  file: DLMS--dlms-file
+  idUtil: DLMS--dlms-idutil
+  hr: DLMS--dlms-hr
+  system: DLMS--dlms-server-system
+  flowable: DLMS--dlms-flowable
+  email: DLMS--dlms-message
+
+restHttpServer:
+  job: http://127.0.0.1:8091/
+  email:
+    url: http://10.122.64.21/
+    retry:
+      #邮件接口重试次数
+      times: 5
+      #邮件接口重试间隔时间（毫秒）
+      interval: 2000
