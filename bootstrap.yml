@@ -15,10 +15,10 @@ spring:
         service-id: lmp-config-server
       headers:
         SERVICE-AUTHENTICATION: ${lmp.service.token}
-#eureka:
-#  instance:
-#    instance-id: ${spring.application.name}:${random.int}
-#    prefer-ip-address: true
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${random.int}
+    prefer-ip-address: true
 
 ---
 #本地环境lmp配置
