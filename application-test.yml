@@ -14,7 +14,7 @@ server:
 
 spring:
   application:
-#    name: ${APPLICATION_NAME:DLMS}--${SERVICE_NAME:dlms-attendance}
+    name: ${APPLICATION_NAME:DLMS}--${SERVICE_NAME:dlms-attendance}
   # 数据源配置
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
@@ -22,7 +22,7 @@ spring:
     druid:
       # 主库数据源
       master:
-        url: jdbc:postgresql://dlms-postgre.postgres.database.azure.com:5432/dlms_attendance
+        url: jdbc:postgresql://dlms-postgre.postgres.database.azure.com:5432/dlms_common
         username: dlmsadmin@dlms-postgre
         password: Dlms!1*8$4
       # 从库数据源
