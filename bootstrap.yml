@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: ${APPLICATION_NAME:DLMS}--${SERVICE_NAME:dlms-demo}
+  profiles:
+    active: test
+  # config server
+  cloud:
+    config:
+      fail-fast: true
+      profile: ${spring.profiles.active}
+      label: master
+      discovery:
+        enabled: false
+        service-id: lmp-config-server
+      headers:
+        SERVICE-AUTHENTICATION: ${lmp.service.token}
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${random.int}
+    prefer-ip-address: true
+---
+spring:
+  profiles: test
+lmp:
+  service:
+    key: ${LMP_SERVICE_KEY:c53510c4bdfe452aaa6a6f7e07c0b601}
+    token: ${LMP_SERVICE_TOKEN:eyJhbGciOiJIUzI1NiJ9.eyJzZXJ2aWNlTmFtZSI6IjEyOTUiLCJzZXJ2aWNlS2V5IjoiYzUzNTEwYzRiZGZlNDUyYWFhNmE2ZjdlMDdjMGI2MDEiLCJzZXJ2aWNlVHlwZSI6IjEiLCJzZXJ2aWNlQXBwIjoiNTA0Iiwic2VydmljZUNsdXN0ZXIiOiIyIiwianRpIjoiMmIzYzJlYjM0OTI4NDFlZTk0OWUxODIzN2MwNDcwYmQiLCJpYXQiOjE1NzI1OTUwNTZ9.cjFJBxcRDlM-OWVr6WgMHMombpter4A8xTpZCGK8A6c}
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${lmp.service.key}:${lmp.service.token}@${EUREKA_URL:eureka-dev.lmp-sy.xpaas.lenovo.com}/eureka

@@ -1,112 +1,58 @@
-#web容器环境
-server:
-  port: 8090
-  servlet:
-    # 应用的访问路径
-    context-path: /
-  tomcat:
-    # tomcat的URI编码
-    uri-encoding: UTF-8
-    # tomcat最大线程数，默认为200
-    max-threads: 800
-    # Tomcat启动初始化的线程数，默认值25
-    min-spare-threads: 30
+feign:
+  hystrix:
+#    enabled: true #开启Hystrix
+  #对请求与响应进行GZIP压缩
+  compression:
+    request:
+      enabled: true
+      mime-types: text/xml,application/xml,application/json
+      min-request-size: 2048
+    response:
+      enabled: true
+###################################################
+hystrix:
+  threadpool:
+    default:
+      coreSize: 1000 #缺省为10
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 80000
+          strategy: SEMAPHORE
 
+ribbon:
+  ReadTimeout: 30000
+  ConnectTimeout: 30000
+  MaxAutoRetries: 1
+  MaxAutoRetriesNextServer: 2
+  eager-load:
+    enabled: true
+    clients: DLMS--dlms-file-zhengwei20
+########################################################
 spring:
-  # 数据源配置
-  datasource:
-    type: com.alibaba.druid.pool.DruidDataSource
-    driverClassName: org.postgresql.Driver
-    druid:
-      # 主库数据源
-      master:
-        url: jdbc:postgresql://127.0.0.1:5432/dlms_cloud_base
-        username: postgres
-        password: 123456
-      # 从库数据源
-      slave:
-        # 从数据源开关/默认关闭
-        enabled: false
-        url:
-        username:
-        password:
-      # 初始连接数
-      initialSize: 5
-      # 最小连接池数量
-      minIdle: 10
-      # 最大连接池数量
-      maxActive: 20
-      # 配置获取连接等待超时的时间
-      maxWait: 60000
-      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
-      timeBetweenEvictionRunsMillis: 60000
-      # 配置一个连接在池中最小生存的时间，单位是毫秒
-      minEvictableIdleTimeMillis: 300000
-      # 配置一个连接在池中最大生存的时间，单位是毫秒
-      maxEvictableIdleTimeMillis: 900000
-      # 配置检测连接是否有效
-      validationQuery: SELECT 1
-      testWhileIdle: true
-      testOnBorrow: false
-      testOnReturn: false
-      webStatFilter:
-        enabled: true
-      statViewServlet:
-        enabled: true
-        # 设置白名单，不填则允许所有访问
-        allow:
-        url-pattern: /monitor/druid/*
-      filter:
-        stat:
-          enabled: true
-          # 慢SQL记录
-          log-slow-sql: true
-          slow-sql-millis: 1000
-          merge-sql: true
-        wall:
-          config:
-            multi-statement-allow: true
-
   cloud:
-    bus:
-      destination: lmpConfigServerDev
+    refresh:
+      refreshable: none
+  messages:
+    basename: messages
+lmp:
+  service:
+    enabled: false
 
-  aop:
-    proxy-target-class: true
+################################################################
+#mybatis配置
+mybatis-plus:
+  type-aliases-package: com.lenovo.bigdata.delivery.dlms.demo.dao.mapper
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    jdbc-type-for-null: null
+  global-config:
+    banner: false
 
-  redis:
-    database: 10
-    host: 127.0.0.1
-    port: 6379
-    password: 12345
-    lettuce:
-      pool:
-        min-idle: 8
-        max-idle: 500
-        max-active: 2000
-        max-wait: 10000
-    timeout: 5000
-  # 文件上传大小限制
-  servlet:
-    multipart:
-      max-file-size: 10MB
-      max-request-size: 10MB
-
-
-#token认证
-security:
-  oauth2:
-    resource:
-      id: ${spring.application.name}
-      user-info-uri: http://zuul-dev.lmp-sy.xpaas.lenovo.com/dlms/dlms-auth/security/user
-
-# 日志配置
-logging:
-  level:
-    com.lenovo.bigdata.delivery.dlms: debug
-    org.springframework: warn
-  config: classpath:logConfig/logback-test.xml
-
-#swagger开关  true-开启 false-关闭
-swagger:
-  enable: true
+###################################################################3
+eureka:
+  instance:
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 30
